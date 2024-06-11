@@ -43,5 +43,5 @@ frames lost too much
 
 ## Another way
 
-see [frame_control_v2](./frame_control_v2/mod.rs)  
+see [frame_control_v2](./src/frame_control_v2/mod.rs)  
 and change the call in `fn main` in `main.rs`.
