@@ -1,8 +1,10 @@
 mod frame_control_v2;
 mod frame_count;
 use crate::frame_control_v2::frame_controler_2::frame_control_2_main;
-use futures_time::{channel, task, time};
+use async_channel as channel;
+use futures_timer::Delay;
 use std::thread;
+use std::time::Duration;
 
 const DRAW_SIGNAL: u8 = 0;
 
@@ -38,7 +40,7 @@ fn frame_control_1_main() {
         // await until frame controler signaled
         while main_receiver.recv().await.is_ok() {
             // use `sleep` to simulate drawing
-            task::sleep(time::Duration::from_secs_f64(DRAW_RATE)).await;
+            Delay::new(Duration::from_secs_f64(DRAW_RATE)).await;
 
             // send draw done signal
             if let Err(t) = main_sender.send(DRAW_SIGNAL).await {
@@ -55,8 +57,7 @@ fn frame_control(sender: channel::Sender<u8>, receiver: channel::Receiver<u8>) -
         futures::executor::block_on(async move {
             // frame control using `sleep`
             let task_timer = || async {
-                // task::sleep(time::Duration::from_secs_f64(DRAW_RATE)).await;
-                task::sleep(time::Duration::from_secs_f64(FRAME_LIMIT)).await;
+                Delay::new(Duration::from_secs_f64(FRAME_LIMIT)).await;
             };
 
             // send draw signal and wait until draw complete

@@ -1,5 +1,5 @@
 use crate::frame_count;
-use futures_time::channel;
+use async_channel as channel;
 use std::time::Duration;
 use std::{
     sync::{Arc, Mutex},
