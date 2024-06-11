@@ -9,6 +9,7 @@ main loop wait for `draw start` signal send by `frame_control` and send back `dr
 ## Something idk
 
 seems that there's some problem with my async design or frame count logic:
+
 ```
 # set rate to 60 per second
 1s ◉ cargo r
@@ -39,3 +40,8 @@ frames in one sec: 135
 ```
 
 frames lost too much
+
+## Another way
+
+see [frame_control_v2](./frame_control_v2/mod.rs)  
+and change the call in `fn main` in `main.rs`.

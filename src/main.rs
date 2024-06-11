@@ -1,16 +1,23 @@
+mod frame_control_v2;
 mod frame_count;
+use crate::frame_control_v2::frame_controler_2::frame_control_2_main;
 use futures_time::{channel, task, time};
 use std::thread;
 
 const DRAW_SIGNAL: u8 = 0;
 
-// const DRAW_RATE: f64 = 1. / 144.;
-const DRAW_RATE: f64 = 1. / 60.;
+const DRAW_RATE: f64 = 1. / 144.;
+// const DRAW_RATE: f64 = 1. / 60.;
 
 // const FRAME_LIMIT: f64 = 1. / 60.;
 const FRAME_LIMIT: f64 = 1. / 144.;
 
 fn main() {
+    frame_control_1_main()
+    // frame_control_2_main();
+}
+
+fn frame_control_1_main() {
     // 2 channels for signal communication between `main thread` and `frame control thread`
     // ( Is there better way? )
     let (sub_sender, main_receiver) = channel::bounded::<u8>(1);
